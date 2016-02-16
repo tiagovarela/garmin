@@ -30,6 +30,7 @@ SSO = "https://sso.garmin.com/sso"
 CSS = "https://static.garmincdn.com/com.garmin.connect/ui/css/gauth-custom-v1.1-min.css"
 REDIRECT = "https://connect.garmin.com/post-auth/login"
 ACTIVITIES = "http://connect.garmin.com/proxy/activity-search-service-1.2/json/activities?start=%s&limit=%s"
+FIT = "https://connect.garmin.com/proxy/download-service/files/activity/%s"
 TCX = "https://connect.garmin.com/proxy/activity-service-1.1/tcx/activity/%s?full=true"
 GPX = "https://connect.garmin.com/proxy/activity-service-1.1/gpx/activity/%s?full=true"
 KML = "https://connect.garmin.com/proxy/activity-service-1.0/kml/activity/%s?full=true"
@@ -118,8 +119,8 @@ def activities(agent, outdir, increment = 100):
             # print '.'
             activityId = item['activity']['activityId']
             activityDate = item['activity']['activitySummary']['BeginTimestamp']['value'][:10]
-            url = TCX % activityId
-            file_name = '{}_{}.txt'.format(activityDate, activityId)
+            url = FIT % activityId
+            file_name = '{}_{}.zip'.format(activityDate, activityId)
             if file_exists_in_folder(file_name, output):
                 print('{} already exists in {}. Skipping.'.format(file_name, output))
                 continue
